@@ -8,6 +8,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.print("branch test");
         setContentView(R.layout.activity_dashboard);
     }
 }
