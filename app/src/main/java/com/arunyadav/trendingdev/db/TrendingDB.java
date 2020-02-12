@@ -60,18 +60,6 @@ public abstract class TrendingDB extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-
-
-
-            long id = repositoryAllDao.insertRepositoryAll(
-                    new RepositoryModel("df","asd","asdfas","","","","",
-            0,0,0));
-
-            respositoryBuildByDao.insertMovie(new BuiltBy("df","asd","asdfas",id));
-
-
-
             return null;
         }
     }

@@ -98,6 +98,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/retrofit/ApiInterface.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/viewModel/TrendingApiHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/viewModel/TrendingViewModel.java">
           <value>
             <set />

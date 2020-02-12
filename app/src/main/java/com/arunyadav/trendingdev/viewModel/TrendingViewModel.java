@@ -13,20 +13,19 @@ import java.util.List;
 public class TrendingViewModel extends AndroidViewModel {
 
     private TrendingViewModelHelper trendingViewModelHelper;
-
+    private TrendingApiHelper trendingApiHelper;
     private LiveData<List<RepositoryModel>> allRepository;
+    private final LiveData<List<RepositoryModel>>  retroObservable;
 
     public TrendingViewModel(@NonNull Application application) {
         super(application);
         trendingViewModelHelper = new TrendingViewModelHelper(application);
+        trendingApiHelper = new TrendingApiHelper(application);
+        retroObservable = trendingApiHelper.providesWebService();
         allRepository = trendingViewModelHelper.getAllRepository();
     }
 
     public LiveData<List<RepositoryModel>> getAllRepository() {
         return allRepository;
-    }
-
-    public void insertMovie(RepositoryModel movie) {
-       trendingViewModelHelper.insertMovie(movie);
     }
 }

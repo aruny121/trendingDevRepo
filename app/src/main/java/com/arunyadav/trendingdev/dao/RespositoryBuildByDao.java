@@ -14,16 +14,8 @@ import java.util.List;
 public interface RespositoryBuildByDao {
 
     @Insert
-    void insertMovie(BuiltBy builtBy);
+    void insertRepositoryBuildby(BuiltBy builtBy);
 
-    @Update
-    void updateMovie(BuiltBy builtBy);
-
-    @Delete
-    void deleteMovie(BuiltBy builtBy);
-
-    @Query("DELETE FROM repository_build_by")
-    void deleteAllMovies();
 
     @Query("SELECT * FROM repository_build_by ORDER BY idchild DESC")
     LiveData<List<BuiltBy>> getRepositoryBuildBy();

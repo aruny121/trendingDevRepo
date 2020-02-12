@@ -17,16 +17,7 @@ import java.util.List;
 public interface RepositoryAllDao {
 
     @Insert
-    long insertRepositoryAll(RepositoryModel repositoryModel);
-
-    @Update
-    void updateMovie(RepositoryModel repositoryModel);
-
-    @Delete
-    void deleteMovie(RepositoryModel repositoryModel);
-
-    @Query("DELETE FROM repository_all")
-    void deleteAllMovies();
+    long[] insertRepositoryAll(List<RepositoryModel> repositoryModel);
 
     @Query("SELECT * FROM repository_all ORDER BY id DESC")
     LiveData<List<RepositoryModel>> getRepositoryAll();
