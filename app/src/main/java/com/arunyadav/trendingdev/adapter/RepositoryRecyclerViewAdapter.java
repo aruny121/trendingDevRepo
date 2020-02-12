@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.arunyadav.trendingdev.Fragments.RepositoryFragment.OnRepositoryFragmentInteractionListener;
 import com.arunyadav.trendingdev.Fragments.dummy.DummyContent.DummyItem;
+import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.R;
 
 import java.util.List;
@@ -15,10 +16,10 @@ import java.util.List;
 
 public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<RepositoryRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<RepositoryModel> mValues;
     private final OnRepositoryFragmentInteractionListener mListener;
 
-    public RepositoryRecyclerViewAdapter(List<DummyItem> items,OnRepositoryFragmentInteractionListener listener) {
+    public RepositoryRecyclerViewAdapter(List<RepositoryModel> items,OnRepositoryFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -33,8 +34,8 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getAuthor());
+        holder.mContentView.setText(mValues.get(position).getAvatar());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +58,7 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public RepositoryModel mItem;
 
         public ViewHolder(View view) {
             super(view);

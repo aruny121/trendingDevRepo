@@ -1,11 +1,29 @@
 
 package com.arunyadav.trendingdev.Model.repositoryModel;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "repository_all")
 public class RepositoryModel {
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @SerializedName("author")
     @Expose
@@ -16,6 +34,21 @@ public class RepositoryModel {
     @SerializedName("avatar")
     @Expose
     private String avatar;
+
+    public RepositoryModel(String author, String name, String avatar, String url, String description, String language, String languageColor, Integer stars, Integer forks, Integer currentPeriodStars) {
+        this.author = author;
+        this.name = name;
+        this.avatar = avatar;
+        this.url = url;
+        this.description = description;
+        this.language = language;
+        this.languageColor = languageColor;
+        this.stars = stars;
+        this.forks = forks;
+        this.currentPeriodStars = currentPeriodStars;
+
+    }
+
     @SerializedName("url")
     @Expose
     private String url;
@@ -34,11 +67,14 @@ public class RepositoryModel {
     @SerializedName("forks")
     @Expose
     private Integer forks;
+
     @SerializedName("currentPeriodStars")
     @Expose
     private Integer currentPeriodStars;
+
+
     @SerializedName("builtBy")
-    @Expose
+    @Expose @Ignore
     private List<BuiltBy> builtBy = null;
 
     public String getAuthor() {

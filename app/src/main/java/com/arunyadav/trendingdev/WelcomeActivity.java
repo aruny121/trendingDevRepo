@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.arunyadav.trendingdev.Fragments.DeveloperFragment;
 import com.arunyadav.trendingdev.Fragments.RepositoryFragment;
 import com.arunyadav.trendingdev.Fragments.dummy.DummyContent;
+import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 
 public class WelcomeActivity extends AppCompatActivity implements DeveloperFragment.OnDeveloperFragmentInteractionListener , RepositoryFragment.OnRepositoryFragmentInteractionListener{
 
@@ -83,7 +84,7 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
     }
 
     @Override
-    public void OnRepositoryFragmentInteractionListener(DummyContent.DummyItem item) {
+    public void OnRepositoryFragmentInteractionListener(RepositoryModel item) {
 
     }
 
