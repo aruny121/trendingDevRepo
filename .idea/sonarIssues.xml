@@ -83,6 +83,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/RepositoryDetail.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/WelcomeActivity.java">
           <value>
             <set />
@@ -129,6 +134,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/viewModel/TrendingViewModelHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml">
           <value>
             <set />
           </value>

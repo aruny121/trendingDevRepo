@@ -1,5 +1,7 @@
 package com.arunyadav.trendingdev;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -88,6 +90,9 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
     public void OnRepositoryFragmentInteractionListener(RepositoryModel item) {
 
         item.getParentid();
+        Intent intent = new Intent(this,RepositoryDetail.class);
+        intent.putExtra("RepoDetails", item);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(),""+item.getParentid(),Toast.LENGTH_LONG).show();
 
     }
