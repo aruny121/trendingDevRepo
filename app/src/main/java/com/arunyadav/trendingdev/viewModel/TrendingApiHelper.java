@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import com.arunyadav.trendingdev.Model.developerModel.DeveloperModel;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.db.TrendingDB;
 import com.arunyadav.trendingdev.retrofit.ApiInterface;
@@ -37,6 +38,10 @@ public class TrendingApiHelper {
 
 
     List<RepositoryModel> webserviceResponseList = new ArrayList<>();
+
+    List<DeveloperModel> webServiceDeveloperResponseList = new ArrayList<>();
+
+
     public LiveData<List<RepositoryModel>> providesWebService() {
         final MutableLiveData<List<RepositoryModel>> data = new MutableLiveData<>();
         try {
@@ -71,4 +76,44 @@ public class TrendingApiHelper {
         }
         return  data;
         }
+
+
+
+
+
+
+    public LiveData<List<DeveloperModel>> providesWebServiceDeveloper() {
+        final MutableLiveData<List<DeveloperModel>> dataDeveloper = new MutableLiveData<>();
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ApiInterface.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(providesOkHttpClientBuilder())
+                    .build();
+            ApiInterface service = retrofit.create(ApiInterface.class);
+            Call<List<DeveloperModel>> call = service.getDeveloperApi();
+            call.enqueue(new Callback<List<DeveloperModel>>() {
+                @Override
+                public void onResponse(Call<List<DeveloperModel>> call, Response<List<DeveloperModel>> response) {
+                    webServiceDeveloperResponseList = response.body();
+                    System.out.print("response is" + webServiceDeveloperResponseList);
+                    Log.d("Repository", "Response::::" + response.body());
+                    TrendingViewModelHelper postRoomDBRepository = new TrendingViewModelHelper(application);
+                    postRoomDBRepository.insertDeveloper(webServiceDeveloperResponseList);
+                    dataDeveloper.setValue(webServiceDeveloperResponseList);
+                }
+                @Override
+                public void onFailure(Call<List<DeveloperModel>> call, Throwable t) {
+                    Log.d("Repository", "Response::::gfgdfgdf");
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  dataDeveloper;
+    }
+
+
+
 }

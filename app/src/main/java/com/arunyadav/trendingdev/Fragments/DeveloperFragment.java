@@ -1,7 +1,10 @@
 package com.arunyadav.trendingdev.Fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arunyadav.trendingdev.Model.developerModel.DeveloperModel;
+import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.R;
-import com.arunyadav.trendingdev.Fragments.dummy.DummyContent;
-import com.arunyadav.trendingdev.Fragments.dummy.DummyContent.DummyItem;
 import com.arunyadav.trendingdev.adapter.MyDeveloperRecyclerViewAdapter;
+import com.arunyadav.trendingdev.adapter.RepositoryRecyclerViewAdapter;
+import com.arunyadav.trendingdev.viewModel.TrendingViewModel;
+
+import java.util.List;
 
 
 public class DeveloperFragment extends Fragment {
@@ -23,6 +30,7 @@ public class DeveloperFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnDeveloperFragmentInteractionListener mListener;
+    private TrendingViewModel viewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,13 +64,17 @@ public class DeveloperFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_developer_list, container, false);
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyDeveloperRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            final RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+            viewModel = ViewModelProviders.of(this).get(TrendingViewModel.class);
+            viewModel.getAllDeveloper().observe(this, new Observer<List<DeveloperModel>>() {
+                @Override
+                public void onChanged(@Nullable List<DeveloperModel> developerModels) {
+                    recyclerView.setAdapter(new MyDeveloperRecyclerViewAdapter(getContext(),developerModels, mListener));
+                    System.out.print("****"+developerModels.toString());
+                }
+            });
         }
         return view;
     }
@@ -86,6 +98,6 @@ public class DeveloperFragment extends Fragment {
     }
     public interface OnDeveloperFragmentInteractionListener {
         // TODO: Update argument type and name
-        void OnDeveloperFragmentInteractionListener(DummyItem item);
+        void OnDeveloperFragmentInteractionListener(DeveloperModel item);
     }
 }

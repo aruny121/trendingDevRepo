@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.R;
-import com.arunyadav.trendingdev.Fragments.dummy.DummyContent;
-import com.arunyadav.trendingdev.Fragments.dummy.DummyContent.DummyItem;
 import com.arunyadav.trendingdev.adapter.RepositoryRecyclerViewAdapter;
 import com.arunyadav.trendingdev.viewModel.TrendingViewModel;
 

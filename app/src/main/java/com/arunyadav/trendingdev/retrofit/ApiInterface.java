@@ -1,5 +1,6 @@
 package com.arunyadav.trendingdev.retrofit;
 
+import com.arunyadav.trendingdev.Model.developerModel.DeveloperModel;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 
 import java.util.List;
@@ -13,4 +14,9 @@ public interface ApiInterface {
 
     @GET("repositories")
     Call<List<RepositoryModel>> getRespositoryApi();
+
+    @GET("developers")
+    Call<List<DeveloperModel>> getDeveloperApi();
+
+
 }

@@ -8,12 +8,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.arunyadav.trendingdev.Model.developerModel.DeveloperModel;
 import com.arunyadav.trendingdev.Model.repositoryModel.BuiltBy;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.dao.RepositoryAllDao;
-import com.arunyadav.trendingdev.dao.RespositoryBuildByDao;
 
-@Database(entities = {BuiltBy.class, RepositoryModel.class}, version = 1,exportSchema = false)
+@Database(entities = {BuiltBy.class, RepositoryModel.class, DeveloperModel.class}, version = 1,exportSchema = false)
 public abstract class TrendingDB extends RoomDatabase {
     private static final String DB_NAME = "TRENDING_DB";
 
@@ -43,17 +43,14 @@ public abstract class TrendingDB extends RoomDatabase {
 
     };
 
-    public abstract RespositoryBuildByDao respositoryBuildByDao();
     public abstract RepositoryAllDao repositoryAllDao();
 
 
     private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
-        private RespositoryBuildByDao respositoryBuildByDao;
         private RepositoryAllDao repositoryAllDao;
 
 
         public PopulateDBAsyncTask(TrendingDB instance) {
-            this.respositoryBuildByDao = instance.respositoryBuildByDao();
             this.repositoryAllDao = instance.repositoryAllDao();
 
         }
