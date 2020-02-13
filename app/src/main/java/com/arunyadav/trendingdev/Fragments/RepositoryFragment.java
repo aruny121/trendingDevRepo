@@ -76,9 +76,7 @@ public class RepositoryFragment extends Fragment {
             viewModel.getAllRepository().observe(this, new Observer<List<RepositoryModel>>() {
                 @Override
                 public void onChanged(@Nullable List<RepositoryModel> repositoryModels) {
-                    //adapter.setMovies(movieList);
-                    recyclerView.setAdapter(new RepositoryRecyclerViewAdapter(repositoryModels, mListener));
-
+                    recyclerView.setAdapter(new RepositoryRecyclerViewAdapter(getContext(),repositoryModels, mListener));
                     System.out.print("****"+repositoryModels.toString());
                 }
             });
