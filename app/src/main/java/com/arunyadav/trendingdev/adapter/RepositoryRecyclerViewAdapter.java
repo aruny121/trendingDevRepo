@@ -1,6 +1,7 @@
 package com.arunyadav.trendingdev.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,8 +39,15 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+        holder.mContentView.setText(mValues.get(position).getName());
         holder.mIdView.setText(mValues.get(position).getAuthor());
-        holder.mContentView.setText(mValues.get(position).getAvatar());
+        holder.description.setText(mValues.get(position).getDescription());
+        if (mValues.get(position).getLanguage() != null && mValues.get(position).getLanguage().length()!= 0) {
+            holder.language.setText(mValues.get(position).getLanguage());
+            holder.language.setTextColor(Color.parseColor(mValues.get(position).getLanguageColor()));
+        }else {
+            holder.language.setVisibility(View.GONE);
+        }
         Glide.with(mContext).load(mValues.get(position).getAvatar())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.avatar);
@@ -62,9 +70,10 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        public final TextView mIdView, description, language;
         public final TextView mContentView;
         public  final ImageView avatar;
+
         public RepositoryModel mItem;
 
         public ViewHolder(View view) {
@@ -73,6 +82,9 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
             avatar = (ImageView)view.findViewById(R.id.avatar);
+            description = (TextView)view.findViewById(R.id.description);
+            language = (TextView)view.findViewById(R.id.language);
+
         }
 
         @Override

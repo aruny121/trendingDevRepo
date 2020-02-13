@@ -55,6 +55,9 @@ public class TrendingApiHelper {
                     Log.d("Repository", "Response::::" + response.body());
                     TrendingViewModelHelper postRoomDBRepository = new TrendingViewModelHelper(application);
                     postRoomDBRepository.insertRepository(webserviceResponseList);
+
+
+
                     data.setValue(webserviceResponseList);
                 }
                 @Override

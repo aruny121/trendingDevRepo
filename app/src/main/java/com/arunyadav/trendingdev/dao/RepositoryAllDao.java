@@ -19,8 +19,20 @@ public interface RepositoryAllDao {
     @Insert
     long[] insertRepositoryAll(List<RepositoryModel> repositoryModel);
 
-    @Query("SELECT * FROM repository_all ORDER BY id DESC")
+    @Query("DELETE FROM repository_all")
+    void deleteAllRepository();
+
+    @Query("SELECT * FROM repository_all ORDER BY parentid DESC")
     LiveData<List<RepositoryModel>> getRepositoryAll();
 
 
+
+    @Insert
+    void insertRepositoryBuildby(List<BuiltBy> builtBy);
+
+    @Query("SELECT * FROM repository_build_by WHERE parentid= :parent_id ORDER BY idchild DESC")
+    LiveData<List<BuiltBy>> getRepositoryBuildBy(long parent_id);
+
+    @Query("DELETE FROM repository_build_by")
+    void deleteRepositoryBuildby();
 }

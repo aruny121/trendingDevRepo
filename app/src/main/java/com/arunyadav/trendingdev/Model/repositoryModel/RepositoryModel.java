@@ -13,17 +13,17 @@ import com.google.gson.annotations.SerializedName;
 public class RepositoryModel {
 
 
-    public int getId() {
-        return id;
+
+    public int getParentid() {
+        return parentid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setParentid(int parentid) {
+        this.parentid = parentid;
     }
-
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int parentid;
 
     @SerializedName("author")
     @Expose

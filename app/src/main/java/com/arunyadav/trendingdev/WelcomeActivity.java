@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arunyadav.trendingdev.Fragments.DeveloperFragment;
 import com.arunyadav.trendingdev.Fragments.RepositoryFragment;
@@ -85,6 +86,9 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
 
     @Override
     public void OnRepositoryFragmentInteractionListener(RepositoryModel item) {
+
+        item.getParentid();
+        Toast.makeText(getApplicationContext(),""+item.getParentid(),Toast.LENGTH_LONG).show();
 
     }
 

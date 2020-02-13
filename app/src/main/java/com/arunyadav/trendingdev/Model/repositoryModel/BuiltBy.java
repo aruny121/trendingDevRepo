@@ -7,8 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-@Entity(tableName = "repository_build_by",  foreignKeys = @ForeignKey(entity = RepositoryModel.class,
-        parentColumns = "id" , childColumns = "idchild"))
+@Entity(tableName = "repository_build_by")
 public class BuiltBy {
 
 
@@ -32,7 +31,7 @@ public class BuiltBy {
         return parentid;
     }
 
-    public void setParentid(int parentid) {
+    public void setParentid(long parentid) {
         this.parentid = parentid;
     }
 
