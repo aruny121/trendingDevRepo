@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TrendingDev</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="tab_text_1">Repository</string>
+    <string name="tab_text_2">Developer</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_repository_detail">RepositoryDetail</string>
 </resources>
