@@ -11,11 +11,16 @@ import android.support.annotation.NonNull;
 import com.arunyadav.trendingdev.Model.developerModel.DeveloperModel;
 import com.arunyadav.trendingdev.Model.repositoryModel.BuiltBy;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
+import com.arunyadav.trendingdev.constants.Constants;
 import com.arunyadav.trendingdev.dao.RepositoryAllDao;
 
-@Database(entities = {BuiltBy.class, RepositoryModel.class, DeveloperModel.class}, version = 1,exportSchema = false)
+/**
+ * Author - Arun yadav
+ * Description - DB Connection file
+ */
+@Database(entities = {BuiltBy.class, RepositoryModel.class, DeveloperModel.class}, version = 1, exportSchema = false)
 public abstract class TrendingDB extends RoomDatabase {
-    private static final String DB_NAME = "TRENDING_DB";
+    private static final String DB_NAME = Constants.DATABASE_NAME;
 
     private static TrendingDB instance;
 
@@ -31,11 +36,11 @@ public abstract class TrendingDB extends RoomDatabase {
     }
 
 
-
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+
 
             new PopulateDBAsyncTask(instance).execute();
         }

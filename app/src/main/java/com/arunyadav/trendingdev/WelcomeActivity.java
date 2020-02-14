@@ -1,12 +1,10 @@
 package com.arunyadav.trendingdev;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.SearchView;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,29 +24,25 @@ import com.arunyadav.trendingdev.Fragments.DeveloperFragment;
 import com.arunyadav.trendingdev.Fragments.RepositoryFragment;
 import com.arunyadav.trendingdev.Model.developerModel.DeveloperModel;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
+import com.arunyadav.trendingdev.constants.Constants;
+import com.arunyadav.trendingdev.viewModel.RepositoryViewModel;
+/**
+ * Author - Arun yadav
+ * Description - Dashboard class
+ */
+public class WelcomeActivity extends AppCompatActivity implements DeveloperFragment.OnDeveloperFragmentInteractionListener, RepositoryFragment.OnRepositoryFragmentInteractionListener {
 
-public class WelcomeActivity extends AppCompatActivity implements DeveloperFragment.OnDeveloperFragmentInteractionListener , RepositoryFragment.OnRepositoryFragmentInteractionListener{
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+    RepositoryViewModel viewModel;
     private ViewPager mViewPager;
+    private SearchView searchView;
+    public Fragment fragmentVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -57,12 +51,34 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        }
+
+
+        searchView = findViewById(R.id.searchRepo);
+        searchView.setQueryHint(Constants.SEARCH_SUGGESTION);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (0 == mViewPager.getCurrentItem() && fragmentVisible != null) {
+                    ((RepositoryFragment) fragmentVisible).onSearchRepository(s);
+                }
+                return false;
+            }
+        });
+
+
+        viewModel = ViewModelProviders.of(this).get(RepositoryViewModel.class);
+
+
+    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_welcome, menu);
         return true;
     }
@@ -70,15 +86,11 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-      if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
 
 
     @Override
@@ -88,32 +100,22 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
 
     @Override
     public void OnRepositoryFragmentInteractionListener(RepositoryModel item) {
-
         item.getParentid();
-        Intent intent = new Intent(this,RepositoryDetail.class);
-        intent.putExtra("RepoDetails", item);
+        Intent intent = new Intent(this, RepositoryDetail.class);
+        intent.putExtra(Constants.INTENT_REPO_DETAILS, item);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(),""+item.getParentid(),Toast.LENGTH_LONG).show();
 
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -132,10 +134,7 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -145,15 +144,16 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
         @Override
         public Fragment getItem(int position) {
             Fragment fm = new Fragment();
-         switch (position){
-             case 0:
-                 fm = new RepositoryFragment();
-                 break;
-             case 1:
-                 fm = new DeveloperFragment();
-                 break;
-                 }
-         return  fm;
+            switch (position) {
+                case 0:
+                    fm = new RepositoryFragment();
+                    fragmentVisible = fm;
+                    break;
+                case 1:
+                    fm = new DeveloperFragment();
+                    break;
+            }
+            return fm;
         }
 
         @Override

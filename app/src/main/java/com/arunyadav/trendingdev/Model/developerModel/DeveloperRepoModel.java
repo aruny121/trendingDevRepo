@@ -2,7 +2,10 @@ package com.arunyadav.trendingdev.Model.developerModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+/**
+ * Author - Arun yadav
+ * Description - Model for developer list sublist
+ */
 public class DeveloperRepoModel {
     @SerializedName("name")
     @Expose

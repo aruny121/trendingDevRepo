@@ -5,10 +5,16 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.List;
+
+import com.arunyadav.trendingdev.constants.Constants;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "developer_all")
+/**
+ * Author - Arun yadav
+ * Description - Model for developer
+ */
+@Entity(tableName = Constants.DATABASE_DEVELOPER_TABLE_NAME)
 public class DeveloperModel {
     public int getParentid() {
         return parentid;
@@ -35,7 +41,8 @@ public class DeveloperModel {
     @Expose
     private String avatar;
     @SerializedName("repo")
-    @Expose @Ignore
+    @Expose
+    @Ignore
     private DeveloperRepoModel repo;
 
     public String getUsername() {

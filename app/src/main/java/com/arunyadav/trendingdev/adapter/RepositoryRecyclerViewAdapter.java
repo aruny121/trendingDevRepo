@@ -12,18 +12,23 @@ import android.widget.TextView;
 import com.arunyadav.trendingdev.Fragments.RepositoryFragment.OnRepositoryFragmentInteractionListener;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.R;
+import com.arunyadav.trendingdev.constants.Constants;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
-
+/**
+ * Author - Arun yadav
+ * Description - Repository  Adapter list
+ */
 public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<RepositoryRecyclerViewAdapter.ViewHolder> {
 
     private final List<RepositoryModel> mValues;
     private final OnRepositoryFragmentInteractionListener mListener;
     private Context mContext;
-    public RepositoryRecyclerViewAdapter(Context context,List<RepositoryModel> items,OnRepositoryFragmentInteractionListener listener) {
+
+    public RepositoryRecyclerViewAdapter(Context context, List<RepositoryModel> items, OnRepositoryFragmentInteractionListener listener) {
         mContext = context;
         mValues = items;
         mListener = listener;
@@ -42,10 +47,19 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
         holder.mContentView.setText(mValues.get(position).getName());
         holder.mIdView.setText(mValues.get(position).getAuthor());
         holder.description.setText(mValues.get(position).getDescription());
-        if (mValues.get(position).getLanguage() != null && mValues.get(position).getLanguage().length()!= 0) {
+        if (mValues.get(position).getLanguage() != null && mValues.get(position).getLanguage().length() != 0 && mValues.get(position).getLanguageColor() != null
+                && !mValues.get(position).getLanguageColor().equals("")) {
             holder.language.setText(mValues.get(position).getLanguage());
-            holder.language.setTextColor(Color.parseColor(mValues.get(position).getLanguageColor()));
-        }else {
+            if (mValues.get(position).getLanguageColor().startsWith(Constants.START_WITH_COLOR_CHECK))
+                try {
+                    holder.language.setTextColor(Color.parseColor(mValues.get(position).getLanguageColor()));
+                }
+                catch (Exception e)
+                {
+                    holder.language.setTextColor(Color.parseColor("#ffffff"));
+                }
+
+        } else {
             holder.language.setVisibility(View.GONE);
         }
         Glide.with(mContext).load(mValues.get(position).getAvatar())
@@ -55,8 +69,6 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.OnRepositoryFragmentInteractionListener(holder.mItem);
                 }
             }
@@ -72,7 +84,7 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
         public final View mView;
         public final TextView mIdView, description, language;
         public final TextView mContentView;
-        public  final ImageView avatar;
+        public final ImageView avatar;
 
         public RepositoryModel mItem;
 
@@ -81,9 +93,9 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
-            avatar = (ImageView)view.findViewById(R.id.avatar);
-            description = (TextView)view.findViewById(R.id.description);
-            language = (TextView)view.findViewById(R.id.language);
+            avatar = (ImageView) view.findViewById(R.id.avatar);
+            description = (TextView) view.findViewById(R.id.description);
+            language = (TextView) view.findViewById(R.id.language);
 
         }
 

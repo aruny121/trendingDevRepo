@@ -7,14 +7,17 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.arunyadav.trendingdev.constants.Constants;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "repository_all")
+/**
+ * Author - Arun yadav
+ * Description - Model for repository list
+ */
+@Entity(tableName = Constants.DATABASE_REPOSITORY_TABLE_NAME)
 public class RepositoryModel implements Serializable {
-
-
-
     public int getParentid() {
         return parentid;
     }
@@ -75,7 +78,8 @@ public class RepositoryModel implements Serializable {
 
 
     @SerializedName("builtBy")
-    @Expose @Ignore
+    @Expose
+    @Ignore
     private List<BuiltBy> builtBy = null;
 
     public String getAuthor() {

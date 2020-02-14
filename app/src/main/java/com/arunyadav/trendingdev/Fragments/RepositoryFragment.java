@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,27 +15,26 @@ import android.view.ViewGroup;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.R;
 import com.arunyadav.trendingdev.adapter.RepositoryRecyclerViewAdapter;
-import com.arunyadav.trendingdev.viewModel.TrendingViewModel;
+import com.arunyadav.trendingdev.viewModel.RepositoryViewModel;
 
 import java.util.List;
 
+
+/**
+ * Author - Arun yadav
+ * Description - Fragments for Repository list
+ */
 public class RepositoryFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnRepositoryFragmentInteractionListener mListener;
-    private TrendingViewModel viewModel;
+    private RepositoryViewModel viewModel;
+    RecyclerView recyclerView;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public RepositoryFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static RepositoryFragment newInstance(int columnCount) {
         RepositoryFragment fragment = new RepositoryFragment();
@@ -60,22 +58,18 @@ public class RepositoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_repository_list, container, false);
 
-
-
-
-
-
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            final RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-            viewModel = ViewModelProviders.of(this).get(TrendingViewModel.class);
+            viewModel = ViewModelProviders.of(this).get(RepositoryViewModel.class);
             viewModel.getAllRepository().observe(this, new Observer<List<RepositoryModel>>() {
                 @Override
                 public void onChanged(@Nullable List<RepositoryModel> repositoryModels) {
-                    recyclerView.setAdapter(new RepositoryRecyclerViewAdapter(getContext(),repositoryModels, mListener));
-                    System.out.print("****"+repositoryModels.toString());
+                    if (recyclerView != null && repositoryModels != null) {
+                        recyclerView.setAdapter(new RepositoryRecyclerViewAdapter(getContext(), repositoryModels, mListener));
+                        System.out.print("****" + repositoryModels.toString());
+                    }
                 }
             });
         }
@@ -100,18 +94,33 @@ public class RepositoryFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnRepositoryFragmentInteractionListener {
-        // TODO: Update argument type and name
         void OnRepositoryFragmentInteractionListener(RepositoryModel item);
+    }
+
+    public void onSearchRepository(String s) {
+        if (s == null || s.equalsIgnoreCase("") || s.length() == 0) {
+            viewModel.getAllRepository().observe(this, new Observer<List<RepositoryModel>>() {
+                @Override
+                public void onChanged(@Nullable List<RepositoryModel> repositoryModels) {
+                    if (recyclerView != null && repositoryModels != null) {
+                        recyclerView.setAdapter(new RepositoryRecyclerViewAdapter(getContext(), repositoryModels, mListener));
+                        System.out.print("****" + repositoryModels.toString());
+                    }
+                }
+            });
+        } else {
+
+            viewModel.getAllRepositorySearch(s).observe(this, new Observer<List<RepositoryModel>>() {
+                @Override
+                public void onChanged(@Nullable List<RepositoryModel> repositoryModels) {
+                    if (recyclerView != null && repositoryModels != null) {
+                        recyclerView.setAdapter(new RepositoryRecyclerViewAdapter(getContext(), repositoryModels, mListener));
+                        System.out.print("****" + repositoryModels.toString());
+                    }
+                }
+            });
+        }
     }
 }

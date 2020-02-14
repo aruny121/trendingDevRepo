@@ -98,7 +98,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/adapter/RepositoryDetailsMemberAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/adapter/RepositoryRecyclerViewAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/constants/Constants.java">
           <value>
             <set />
           </value>
@@ -123,6 +133,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/viewModel/DeveloperViewModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/viewModel/RepositoryDetailViewModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/viewModel/RepositoryViewModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/arunyadav/trendingdev/viewModel/TrendingApiHelper.java">
           <value>
             <set />
@@ -139,6 +164,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_repository_detail.xml">
           <value>
             <set />
           </value>
@@ -164,6 +194,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_repository_list.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/repository_list_adapter.xml">
           <value>
             <set />
           </value>

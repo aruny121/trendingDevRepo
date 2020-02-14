@@ -11,29 +11,25 @@ import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 
 import java.util.List;
 
-public class TrendingViewModel extends AndroidViewModel {
+/**
+ * Author - Arun yadav
+ * Description - VIEW Model for repository list
+ */
+public class RepositoryViewModel extends AndroidViewModel {
 
     private TrendingViewModelHelper trendingViewModelHelper;
     private TrendingApiHelper trendingApiHelper;
     private LiveData<List<RepositoryModel>> allRepository;
-    private final LiveData<List<RepositoryModel>>  retroObservable;
+    private LiveData<List<RepositoryModel>> retroObservable;
+    private LiveData<List<RepositoryModel>> allRepositorySearch;
 
 
-    private LiveData<List<DeveloperModel>> allDeveloper;
-    private final LiveData<List<DeveloperModel>>  retroObservableDeveloper;
-
-
-    public TrendingViewModel(@NonNull Application application) {
+    public RepositoryViewModel(@NonNull Application application) {
         super(application);
         trendingViewModelHelper = new TrendingViewModelHelper(application);
         trendingApiHelper = new TrendingApiHelper(application);
         retroObservable = trendingApiHelper.providesWebService();
         allRepository = trendingViewModelHelper.getAllRepository();
-
-        retroObservableDeveloper = trendingApiHelper.providesWebServiceDeveloper();
-        allDeveloper = trendingViewModelHelper.getAllDeveloper();
-
-
 
     }
 
@@ -41,8 +37,9 @@ public class TrendingViewModel extends AndroidViewModel {
         return allRepository;
     }
 
-    public LiveData<List<DeveloperModel>> getAllDeveloper() {
-        return allDeveloper;
+    public LiveData<List<RepositoryModel>> getAllRepositorySearch(String searchText) {
+        allRepositorySearch = trendingViewModelHelper.getAllRepositorySearch(searchText);
+        return allRepositorySearch;
     }
 
 }

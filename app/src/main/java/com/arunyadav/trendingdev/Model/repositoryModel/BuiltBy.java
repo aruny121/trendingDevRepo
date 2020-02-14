@@ -5,9 +5,16 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.arunyadav.trendingdev.constants.Constants;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-@Entity(tableName = "repository_build_by")
+
+
+/**
+ * Author - Arun yadav
+ * Description - Model for Repository list sublist
+ */
+@Entity(tableName = Constants.DATABASE_REPOSITORY_SUB_MEMBER_TABLE_NAME)
 public class BuiltBy {
 
 
@@ -23,10 +30,6 @@ public class BuiltBy {
     private int idchild;
 
 
-
-
-
-
     public long getParentid() {
         return parentid;
     }
@@ -35,8 +38,7 @@ public class BuiltBy {
         this.parentid = parentid;
     }
 
-    private  long parentid;
-
+    private long parentid;
 
 
     @SerializedName("username")
