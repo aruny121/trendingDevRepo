@@ -1,7 +1,10 @@
 package com.arunyadav.trendingdev;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -25,6 +28,7 @@ import com.arunyadav.trendingdev.Fragments.RepositoryFragment;
 import com.arunyadav.trendingdev.Model.developerModel.DeveloperModel;
 import com.arunyadav.trendingdev.Model.repositoryModel.RepositoryModel;
 import com.arunyadav.trendingdev.constants.Constants;
+import com.arunyadav.trendingdev.constants.MyReceiver;
 import com.arunyadav.trendingdev.viewModel.RepositoryViewModel;
 /**
  * Author - Arun yadav
@@ -38,11 +42,15 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
     private ViewPager mViewPager;
     private SearchView searchView;
     public Fragment fragmentVisible;
+    private BroadcastReceiver MyReceiver = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        MyReceiver = new MyReceiver();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -160,5 +168,19 @@ public class WelcomeActivity extends AppCompatActivity implements DeveloperFragm
         public int getCount() {
             return 2;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(MyReceiver);
+
     }
 }

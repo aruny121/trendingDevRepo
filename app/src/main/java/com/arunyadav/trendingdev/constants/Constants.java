@@ -28,4 +28,6 @@ public class Constants {
     public static  final String API_DEVELOPERS_TAG = "developers";
 
 
+    public static  final String NO_INTERNET = "No internet is available";
+
 }
